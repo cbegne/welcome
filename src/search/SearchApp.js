@@ -1,14 +1,27 @@
 import { useEffect, useState } from 'react';
 
-import { Box } from '@welcome-ui/box';
 import { Text } from '@welcome-ui/text';
 import { SearchLayout } from './layout/SearchLayout';
 import { JobCardsMain } from './JobCards';
+import { SearchFields } from './SearchFields';
+import {
+  filterByContractType,
+  filterPublishedAfter,
+} from './utils/searchUtils';
+
+export const SearchAppMain = () => (
+  <SearchLayout>
+    <SearchApp />
+  </SearchLayout>
+);
 
 export const SearchApp = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [allJobs, setAllJobs] = useState();
   const [jobs, setJobs] = useState();
+  const [contractType, setContractType] = useState(null);
+  const [date, setDate] = useState(null);
 
   useEffect(() => {
     const url =
@@ -18,8 +31,9 @@ export const SearchApp = () => {
       try {
         setIsLoading(true);
         const response = await fetch(url, { method: 'GET', mode: 'cors' });
-        const jsonResponse = await response.json();
-        setJobs(jsonResponse.jobs);
+        const data = await response.json();
+        setAllJobs(data.jobs);
+        setJobs(data.jobs);
         setIsLoading(false);
       } catch (error) {
         setError(true);
@@ -30,18 +44,33 @@ export const SearchApp = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (allJobs?.length > 0) {
+      const jobsFiltered = allJobs.filter(
+        (job) =>
+          filterByContractType(job, contractType) &&
+          filterPublishedAfter(job, date)
+      );
+      setJobs(jobsFiltered);
+    }
+  }, [contractType, date]);
+
   console.log(jobs);
 
   return (
-    <SearchLayout>
-      <Box margin="0 auto" maxWidth={1} w={1280} display="flex">
-        <Box mt="10%" backgroundColor="nude.100" w={1} borderRadius="6px">
-          <Text variant="h2" textAlign="center">
-            Our offers
-          </Text>
-          <JobCardsMain jobs={jobs} isLoading={isLoading} error={error} />
-        </Box>
-      </Box>
-    </SearchLayout>
+    <>
+      <Text variant="h2" textAlign="center">
+        Our offers
+      </Text>
+      {!isLoading && !error && (
+        <SearchFields
+          allJobs={allJobs}
+          setDate={setDate}
+          setContractType={setContractType}
+          contractType={contractType}
+        />
+      )}
+      <JobCardsMain jobs={jobs} isLoading={isLoading} error={error} />
+    </>
   );
 };

@@ -16,7 +16,7 @@ export const JobCardsMain = ({ jobs, isLoading, error }) => {
   if (error) return <WrapperBox>Sorry, an error occured</WrapperBox>;
 
   if (!jobs.length)
-    return <WrapperBox>Sorry, no job offer available now</WrapperBox>;
+    return <WrapperBox>Sorry, no job offer available</WrapperBox>;
 
   return <JobCards jobs={jobs} />;
 };
@@ -25,8 +25,6 @@ const JobCards = ({ jobs }) => {
   const openModal = () => {
     console.log('open modal');
   };
-
-  console.log(jobs);
 
   return (
     <Stack padding={30}>

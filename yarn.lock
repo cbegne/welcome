@@ -2314,6 +2314,16 @@
   dependencies:
     "@welcome-ui/icon" "^2.15.3"
 
+"@welcome-ui/input-text@^2.15.3":
+  version "2.15.3"
+  resolved "https://registry.yarnpkg.com/@welcome-ui/input-text/-/input-text-2.15.3.tgz#dcd7a0b869f5d8d8755ad7742d9323103bd40a0b"
+  integrity sha512-WnWDyw/S7YtMKYFqi9wf05/Kkg9jl2RgQXHxhNxHAQ3kpSQSFaR0jHg8CybFj6KCHTPDtoA+yJiqXRbUz9Llvw==
+  dependencies:
+    "@welcome-ui/clear-button" "^2.15.3"
+    "@welcome-ui/field" "^2.15.3"
+    "@welcome-ui/system" "^2.15.3"
+    "@welcome-ui/utils" "^2.15.3"
+
 "@welcome-ui/label@^2.15.3":
   version "2.15.3"
   resolved "https://registry.yarnpkg.com/@welcome-ui/label/-/label-2.15.3.tgz#3abfd3c3abac69cc13a79194bdd27efc70198726"

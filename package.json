@@ -12,6 +12,7 @@
     "@welcome-ui/core": "^2.15.3",
     "@welcome-ui/date-picker": "^2.15.3",
     "@welcome-ui/field": "^2.15.3",
+    "@welcome-ui/input-text": "^2.15.3",
     "@welcome-ui/loader": "^2.15.3",
     "@welcome-ui/search": "^2.15.3",
     "@welcome-ui/select": "^2.15.3",
