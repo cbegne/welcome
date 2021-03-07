@@ -1,15 +1,15 @@
-import React from 'react'
-import { createTheme, WuiProvider } from '@welcome-ui/core'
-import { Button } from '@welcome-ui/button'
+import { createTheme, WuiProvider } from '@welcome-ui/core';
+import { SearchApp } from './search/SearchApp';
 
-const theme = createTheme()
+const theme = createTheme();
 
 const App = () => {
-    return (
-        <WuiProvider theme={theme}>
-            <Button variant="secondary">Welcome!</Button>
-        </WuiProvider>
-    )
-}
+  console.log(theme);
+  return (
+    <WuiProvider theme={theme}>
+      <SearchApp />
+    </WuiProvider>
+  );
+};
 
-export default App
+export default App;
