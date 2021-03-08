@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-
 import { Text } from '@welcome-ui/text';
+
 import { SearchLayout } from './layout/SearchLayout';
 import { JobCardsMain } from './JobCards';
 import { SearchFields } from './SearchFields';
