@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { Box } from '@welcome-ui/box';
 
-export const SearchLayout = ({ children }) => (
+export const OffersLayout = ({ children }) => (
   <WrapperStyled as="main">
     <Box margin="0 auto" maxWidth={1} w={1280} display="flex">
       <Box mt="10%" backgroundColor="nude.100" w={1} borderRadius="6px">

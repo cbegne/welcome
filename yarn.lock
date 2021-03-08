@@ -2343,18 +2343,6 @@
     "@welcome-ui/shape" "^2.15.3"
     "@welcome-ui/system" "^2.15.3"
 
-"@welcome-ui/search@^2.15.3":
-  version "2.15.3"
-  resolved "https://registry.yarnpkg.com/@welcome-ui/search/-/search-2.15.3.tgz#a67e0d7494724321e5095e2477b02d5f13231f28"
-  integrity sha512-tiyXlnTAK4Vb2ObGMT+l/GcEjfSdX/sx8fN/gybuzUYdJUSaacv7vm+01t8rN7MqmtV+ymjaUmUxvK/qfgtrEA==
-  dependencies:
-    "@welcome-ui/clear-button" "^2.15.3"
-    "@welcome-ui/icon" "^2.15.3"
-    "@welcome-ui/system" "^2.15.3"
-    "@welcome-ui/tag" "^2.15.3"
-    "@welcome-ui/utils" "^2.15.3"
-    downshift "=3.2.10"
-
 "@welcome-ui/select@^2.15.3":
   version "2.15.3"
   resolved "https://registry.yarnpkg.com/@welcome-ui/select/-/select-2.15.3.tgz#3c030080825e821cb1a7df1435775d2748646119"

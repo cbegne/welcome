@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Text } from '@welcome-ui/text';
 
-import { SearchLayout } from './layout/SearchLayout';
+import { OffersLayout } from './layout/OffersLayout';
 import { JobCardsMain } from './JobCards';
 import { SearchFields } from './SearchFields';
 import {
@@ -11,13 +11,13 @@ import {
   getJobsByGroup,
 } from './utils/searchUtils';
 
-export const SearchAppMain = () => (
-  <SearchLayout>
-    <SearchApp />
-  </SearchLayout>
+export const OffersAppMain = () => (
+  <OffersLayout>
+    <OffersApp />
+  </OffersLayout>
 );
 
-export const SearchApp = () => {
+export const OffersApp = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 

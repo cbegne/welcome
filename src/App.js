@@ -1,11 +1,14 @@
 import { createTheme, WuiProvider } from '@welcome-ui/core';
-import { SearchAppMain } from './search/SearchApp';
+import { OffersAppMain } from './offers/OffersApp';
+import { JobProvider } from './offers/context/JobContext';
 
 const theme = createTheme();
 
 const App = () => (
   <WuiProvider theme={theme}>
-    <SearchAppMain />
+    <JobProvider>
+      <OffersAppMain />
+    </JobProvider>
   </WuiProvider>
 );
 

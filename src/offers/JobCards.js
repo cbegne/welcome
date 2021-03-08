@@ -1,9 +1,13 @@
+import { useState } from 'react';
 import { Loader } from '@welcome-ui/loader';
 import { Card } from '@welcome-ui/card';
 import { Text } from '@welcome-ui/text';
 import { Stack } from '@welcome-ui/stack';
 import { Box } from '@welcome-ui/box';
 import { Button } from '@welcome-ui/button';
+
+import { JobDescriptionModal } from './JobDescriptionModal';
+import { useJobContext } from './context/JobContext';
 
 export const JobCardsMain = ({ jobs, jobsByGroup, isLoading, error }) => {
   if (isLoading)
@@ -22,34 +26,47 @@ export const JobCardsMain = ({ jobs, jobsByGroup, isLoading, error }) => {
 };
 
 const JobCards = ({ jobs, jobsByGroup }) => {
-  const openModal = () => {
-    console.log('open modal');
-  };
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => setShowModal(true);
+
+  const closeModal = () => setShowModal(false);
 
   if (jobsByGroup) {
     const groups = Object.keys(jobsByGroup);
     return groups.map((group, index) => (
-      <Stack padding={30} key={index}>
+      <JobsCardWrapper
+        key={index}
+        showModal={showModal}
+        closeModal={closeModal}
+      >
         <Text variant="h4" as="p">
           {group}
         </Text>
         {jobsByGroup[group].map((job) => (
           <JobCard job={job} openModal={openModal} key={job.id} />
         ))}
-      </Stack>
+      </JobsCardWrapper>
     ));
   }
 
   return (
-    <Stack padding={30}>
+    <JobsCardWrapper showModal={showModal} closeModal={closeModal}>
       {jobs.map((job) => (
         <JobCard job={job} openModal={openModal} key={job.id} />
       ))}
-    </Stack>
+    </JobsCardWrapper>
   );
 };
 
 const JobCard = ({ job, openModal }) => {
+  const { setJob } = useJobContext();
+
+  const onClick = () => {
+    setJob(job);
+    openModal();
+  };
+
   const { name, contract_type, office } = job;
   return (
     <Card
@@ -66,7 +83,7 @@ const JobCard = ({ job, openModal }) => {
           {contract_type.en} - {office.name}
         </Text>
       </Box>
-      <Button onClick={openModal}>See more</Button>
+      <Button onClick={onClick}>See more</Button>
     </Card>
   );
 };
@@ -75,4 +92,11 @@ const WrapperBox = ({ children }) => (
   <Box display="flex" justifyContent="center" margin={50}>
     {children}
   </Box>
+);
+
+const JobsCardWrapper = ({ children, showModal, closeModal, job }) => (
+  <>
+    <Stack padding={30}>{children}</Stack>
+    {showModal && <JobDescriptionModal closeModal={closeModal} />}
+  </>
 );
