@@ -34,7 +34,7 @@ const JobCards = ({ jobs, jobsByGroup }) => {
           {group}
         </Text>
         {jobsByGroup[group].map((job) => (
-          <JobCard job={job} openModal={openModal} />
+          <JobCard job={job} openModal={openModal} key={job.id} />
         ))}
       </Stack>
     ));
@@ -43,17 +43,16 @@ const JobCards = ({ jobs, jobsByGroup }) => {
   return (
     <Stack padding={30}>
       {jobs.map((job) => (
-        <JobCard job={job} openModal={openModal} />
+        <JobCard job={job} openModal={openModal} key={job.id} />
       ))}
     </Stack>
   );
 };
 
 const JobCard = ({ job, openModal }) => {
-  const { id, name, contract_type, office } = job;
+  const { name, contract_type, office } = job;
   return (
     <Card
-      key={id}
       padding={20}
       display="flex"
       justifyContent="space-between"
