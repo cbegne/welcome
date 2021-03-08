@@ -7,6 +7,8 @@ import { SearchFields } from './SearchFields';
 import {
   filterByContractType,
   filterPublishedAfter,
+  filterByTextSearch,
+  getJobsByGroup,
 } from './utils/searchUtils';
 
 export const SearchAppMain = () => (
@@ -18,10 +20,15 @@ export const SearchAppMain = () => (
 export const SearchApp = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
+
   const [allJobs, setAllJobs] = useState();
   const [jobs, setJobs] = useState();
+  const [jobsByGroup, setJobsByGroup] = useState();
+
   const [contractType, setContractType] = useState(null);
   const [date, setDate] = useState(null);
+  const [search, setSearch] = useState('');
+  const [group, setGroup] = useState(null);
 
   useEffect(() => {
     const url =
@@ -46,16 +53,15 @@ export const SearchApp = () => {
 
   useEffect(() => {
     if (allJobs?.length > 0) {
-      const jobsFiltered = allJobs.filter(
-        (job) =>
-          filterByContractType(job, contractType) &&
-          filterPublishedAfter(job, date)
-      );
+      const jobsFiltered = allJobs
+        .filter((job) => filterByTextSearch(job, search))
+        .filter((job) => filterByContractType(job, contractType))
+        .filter((job) => filterPublishedAfter(job, date));
+      const jobsGrouped = getJobsByGroup(jobsFiltered, group);
+      setJobsByGroup(jobsGrouped);
       setJobs(jobsFiltered);
     }
-  }, [contractType, date]);
-
-  console.log(jobs);
+  }, [search, contractType, date, group]);
 
   return (
     <>
@@ -68,9 +74,17 @@ export const SearchApp = () => {
           setDate={setDate}
           setContractType={setContractType}
           contractType={contractType}
+          setSearch={setSearch}
+          group={group}
+          setGroup={setGroup}
         />
       )}
-      <JobCardsMain jobs={jobs} isLoading={isLoading} error={error} />
+      <JobCardsMain
+        jobs={jobs}
+        jobsByGroup={jobsByGroup}
+        isLoading={isLoading}
+        error={error}
+      />
     </>
   );
 };

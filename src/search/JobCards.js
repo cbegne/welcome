@@ -5,7 +5,7 @@ import { Stack } from '@welcome-ui/stack';
 import { Box } from '@welcome-ui/box';
 import { Button } from '@welcome-ui/button';
 
-export const JobCardsMain = ({ jobs, isLoading, error }) => {
+export const JobCardsMain = ({ jobs, jobsByGroup, isLoading, error }) => {
   if (isLoading)
     return (
       <WrapperBox>
@@ -18,36 +18,57 @@ export const JobCardsMain = ({ jobs, isLoading, error }) => {
   if (!jobs.length)
     return <WrapperBox>Sorry, no job offer available</WrapperBox>;
 
-  return <JobCards jobs={jobs} />;
+  return <JobCards jobs={jobs} jobsByGroup={jobsByGroup} />;
 };
 
-const JobCards = ({ jobs }) => {
+const JobCards = ({ jobs, jobsByGroup }) => {
   const openModal = () => {
     console.log('open modal');
   };
 
+  if (jobsByGroup) {
+    const groups = Object.keys(jobsByGroup);
+    return groups.map((group, index) => (
+      <Stack padding={30} key={index}>
+        <Text variant="h4" as="p">
+          {group}
+        </Text>
+        {jobsByGroup[group].map((job) => (
+          <JobCard job={job} openModal={openModal} />
+        ))}
+      </Stack>
+    ));
+  }
+
   return (
     <Stack padding={30}>
-      {jobs.map(({ id, name, contract_type, office }) => (
-        <Card
-          key={id}
-          padding={20}
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Box>
-            <Text variant="h5" as="p">
-              {name}
-            </Text>
-            <Text>
-              {contract_type.en} - {office.name}
-            </Text>
-          </Box>
-          <Button onClick={openModal}>See more</Button>
-        </Card>
+      {jobs.map((job) => (
+        <JobCard job={job} openModal={openModal} />
       ))}
     </Stack>
+  );
+};
+
+const JobCard = ({ job, openModal }) => {
+  const { id, name, contract_type, office } = job;
+  return (
+    <Card
+      key={id}
+      padding={20}
+      display="flex"
+      justifyContent="space-between"
+      alignItems="center"
+    >
+      <Box>
+        <Text variant="h5" as="p">
+          {name}
+        </Text>
+        <Text>
+          {contract_type.en} - {office.name}
+        </Text>
+      </Box>
+      <Button onClick={openModal}>See more</Button>
+    </Card>
   );
 };
 

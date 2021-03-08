@@ -5,15 +5,22 @@ import { Box } from '@welcome-ui/box';
 import { DatePicker } from '@welcome-ui/date-picker';
 
 import { getContractTypes } from './utils/searchUtils';
+import { useDebounce } from './hooks/useDebounce';
+import { GROUPS } from './utils/searchConstants';
 
 export const SearchFields = ({
   allJobs,
   setContractType,
   setDate,
   contractType,
+  setSearch,
+  group,
+  setGroup,
 }) => {
   const dateRef = useRef();
   const [contractTypes, setContractTypes] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
   useEffect(() => {
     if (allJobs?.length > 0) {
@@ -22,8 +29,12 @@ export const SearchFields = ({
     }
   }, [allJobs]);
 
+  useEffect(() => {
+    setSearch(debouncedSearchTerm);
+  }, [debouncedSearchTerm]);
+
   const handleTextChange = (event) => {
-    console.log(event.target.value);
+    setSearchTerm(event.target.value);
   };
 
   const handleContractTypeChange = (value) => {
@@ -32,6 +43,10 @@ export const SearchFields = ({
 
   const handleDateChange = (value) => {
     setDate(value);
+  };
+
+  const handleGroupChange = (value) => {
+    setGroup(value);
   };
 
   return (
@@ -48,6 +63,12 @@ export const SearchFields = ({
         onChange={handleDateChange}
         ref={dateRef}
         value=""
+      />
+      <Select
+        placeholder="Group by"
+        options={GROUPS}
+        onChange={handleGroupChange}
+        value={group}
       />
     </Box>
   );

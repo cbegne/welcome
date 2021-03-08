@@ -1,4 +1,12 @@
 {
     "extends": "react-app",
-    "plugins": ["prettier"]
+    "plugins": ["prettier"],
+    "overrides": [
+      {
+          "files": ["**/*.js"],
+          "rules": {
+              "react-hooks/exhaustive-deps": "off"
+          }
+      }
+  ]
   }
