@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Text } from '@welcome-ui/text';
 
 import { OffersLayout } from './layout/OffersLayout';
-import { JobCardsMain } from './JobCards';
-import { SearchFields } from './SearchFields';
+import { JobCardsMain } from './cards/JobCardsMain';
+import { SearchFields } from './fields/SearchFields';
 import {
   filterByContractType,
   filterPublishedAfter,

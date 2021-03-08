@@ -3,8 +3,8 @@ import { Box } from '@welcome-ui/box';
 import { Text } from '@welcome-ui/text';
 import { Button } from '@welcome-ui/button';
 
-import { Modal } from '../modal/Modal';
-import { useJobContext } from './context/JobContext';
+import { Modal } from '../../modal/Modal';
+import { useJobContext } from '../context/JobContext';
 
 export const JobDescriptionModal = ({ closeModal }) => {
   const { job } = useJobContext();

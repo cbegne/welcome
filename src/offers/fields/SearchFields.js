@@ -5,9 +5,9 @@ import { Select } from '@welcome-ui/select';
 import { Box } from '@welcome-ui/box';
 import { DatePicker } from '@welcome-ui/date-picker';
 
-import { getContractTypes } from './utils/searchUtils';
-import { useDebounce } from './hooks/useDebounce';
-import { GROUPS } from './utils/searchConstants';
+import { getContractTypes } from '../utils/searchUtils';
+import { useDebounce } from '../../hooks/useDebounce';
+import { GROUPS } from '../utils/searchConstants';
 
 export const SearchFields = ({
   allJobs,
@@ -34,32 +34,23 @@ export const SearchFields = ({
     setSearch(debouncedSearchTerm);
   }, [debouncedSearchTerm]);
 
-  const handleTextChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleContractTypeChange = (value) => {
-    setContractType(value);
-  };
-
-  const handleDateChange = (value) => {
-    setDate(value);
-  };
-
-  const handleGroupChange = (value) => {
-    setGroup(value);
-  };
-
   return (
     <WrapperStyled>
       <InputStyled>
-        <InputText placeholder="Your dream job?" onChange={handleTextChange} />
+        <InputText
+          placeholder="Your dream job?"
+          onChange={(event) => {
+            setSearchTerm(event.target.value);
+          }}
+        />
       </InputStyled>
       <SelectStyled>
         <Select
           placeholder="Contract type"
           options={contractTypes}
-          onChange={handleContractTypeChange}
+          onChange={(value) => {
+            setContractType(value);
+          }}
           value={contractType}
           isClearable
         />
@@ -67,7 +58,9 @@ export const SearchFields = ({
       <SelectStyled>
         <DatePicker
           placeholder="Date"
-          onChange={handleDateChange}
+          onChange={(value) => {
+            setDate(value);
+          }}
           ref={dateRef}
           value=""
         />
@@ -76,7 +69,9 @@ export const SearchFields = ({
         <Select
           placeholder="Group by"
           options={GROUPS}
-          onChange={handleGroupChange}
+          onChange={(value) => {
+            setGroup(value);
+          }}
           value={group}
           isClearable
         />

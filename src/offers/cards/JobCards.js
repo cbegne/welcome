@@ -1,31 +1,14 @@
 import { useState } from 'react';
-import { Loader } from '@welcome-ui/loader';
 import { Card } from '@welcome-ui/card';
 import { Text } from '@welcome-ui/text';
 import { Stack } from '@welcome-ui/stack';
 import { Box } from '@welcome-ui/box';
 import { Button } from '@welcome-ui/button';
 
-import { JobDescriptionModal } from './JobDescriptionModal';
-import { useJobContext } from './context/JobContext';
+import { JobDescriptionModal } from '../modal/JobDescriptionModal';
+import { useJobContext } from '../context/JobContext';
 
-export const JobCardsMain = ({ jobs, jobsByGroup, isLoading, error }) => {
-  if (isLoading)
-    return (
-      <WrapperBox>
-        <Loader />
-      </WrapperBox>
-    );
-
-  if (error) return <WrapperBox>Sorry, an error occured</WrapperBox>;
-
-  if (!jobs.length)
-    return <WrapperBox>Sorry, no job offer available</WrapperBox>;
-
-  return <JobCards jobs={jobs} jobsByGroup={jobsByGroup} />;
-};
-
-const JobCards = ({ jobs, jobsByGroup }) => {
+export const JobCards = ({ jobs, jobsByGroup }) => {
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => setShowModal(true);
@@ -59,6 +42,13 @@ const JobCards = ({ jobs, jobsByGroup }) => {
   );
 };
 
+const JobsCardWrapper = ({ children, showModal, closeModal, job }) => (
+  <>
+    <Stack padding={30}>{children}</Stack>
+    {showModal && <JobDescriptionModal closeModal={closeModal} />}
+  </>
+);
+
 const JobCard = ({ job, openModal }) => {
   const { setJob } = useJobContext();
 
@@ -87,16 +77,3 @@ const JobCard = ({ job, openModal }) => {
     </Card>
   );
 };
-
-const WrapperBox = ({ children }) => (
-  <Box display="flex" justifyContent="center" margin={50}>
-    {children}
-  </Box>
-);
-
-const JobsCardWrapper = ({ children, showModal, closeModal, job }) => (
-  <>
-    <Stack padding={30}>{children}</Stack>
-    {showModal && <JobDescriptionModal closeModal={closeModal} />}
-  </>
-);
