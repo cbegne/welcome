@@ -5,9 +5,9 @@ import { Select } from '@welcome-ui/select';
 import { Box } from '@welcome-ui/box';
 import { DatePicker } from '@welcome-ui/date-picker';
 
-import { getContractTypes } from '../utils/searchUtils';
+import { getContractTypes } from '../utils/offersUtils';
 import { useDebounce } from '../../hooks/useDebounce';
-import { GROUPS } from '../utils/searchConstants';
+import { GROUPS } from '../utils/offersConstants';
 
 export const SearchFields = ({
   allJobs,

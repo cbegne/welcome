@@ -9,7 +9,7 @@ import {
   filterPublishedAfter,
   filterByTextSearch,
   getJobsByGroup,
-} from './utils/searchUtils';
+} from './utils/offersUtils';
 
 export const OffersAppContainer = () => (
   <OffersLayout>
