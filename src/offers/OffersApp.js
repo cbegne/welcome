@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Text } from '@welcome-ui/text';
 
 import { OffersLayout } from './layout/OffersLayout';
-import { JobCardsMain } from './cards/JobCardsMain';
+import { JobCards } from './cards/JobCards';
 import { SearchFields } from './fields/SearchFields';
 import {
   filterByContractType,
@@ -11,13 +11,13 @@ import {
   getJobsByGroup,
 } from './utils/searchUtils';
 
-export const OffersAppMain = () => (
+export const OffersAppContainer = () => (
   <OffersLayout>
     <OffersApp />
   </OffersLayout>
 );
 
-export const OffersApp = () => {
+const OffersApp = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -79,7 +79,7 @@ export const OffersApp = () => {
           setGroup={setGroup}
         />
       )}
-      <JobCardsMain
+      <JobCards
         jobs={jobs}
         jobsByGroup={jobsByGroup}
         isLoading={isLoading}
