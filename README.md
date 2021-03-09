@@ -18,4 +18,3 @@ Filters :
 - Grouped by contract types or office name
 
 Click on See more open a modal with the job description. 
-Click on Apply opens to the job offer on an external website. 
